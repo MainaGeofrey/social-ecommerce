@@ -52,5 +52,9 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::registerView(function () {
             return view('content.authentications.auth-register-basic');
         });
+
+        Fortify::verifyEmailView(function () {
+            return view('content.authentications.verify-email');
+        });
     }
 }
