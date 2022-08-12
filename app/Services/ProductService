@@ -1,0 +1,25 @@
+<?php
+namespace App\Services;
+
+use App\Http\Requests\Products\StoreProductRequest;
+use App\Models\Products\Product;
+
+
+class ProductService
+{
+  public function createProduct(StoreProductRequest $request)
+  {
+   // dd($request->all());
+    $product = Product::create([
+      'product_name' => $request->product_name,
+      'category_id' => $request->category_id,
+      'product_short_description' => $request->product_short_description,
+      'product_price' => $request->product_price,
+      'product_discount' => $request->product_discount,
+      'product_color' => $request->product_color,
+      'status' => $request->status,
+    ]);
+
+    return $product;
+  }
+}

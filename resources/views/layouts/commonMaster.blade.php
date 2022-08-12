@@ -36,6 +36,9 @@
 
   <!-- Include Scripts -->
   @include('layouts/sections/scripts')
+  @include('pages/vendoradmin/products/scripts')
+
+
 
 </body>
 

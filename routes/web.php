@@ -15,6 +15,22 @@ use Illuminate\Support\Facades\Route;
 
 $controller_path = 'App\Http\Controllers';
 
+//closure routes
+Route::get('/vendor/products', [
+    'uses' => $controller_path . '\VendorAdmin\ProductController@index',
+    'as' => 'vendor.products.index' //name
+])->middleware('auth');
+
+Route::get('/vendor/products/create', [
+    'uses' => $controller_path . '\VendorAdmin\ProductController@create',
+    'as' => 'vendor.products.create'
+])->middleware('auth');
+
+Route::post('/vendor/products', [
+    'uses' => $controller_path . '\VendorAdmin\ProductController@store',
+    'as' => 'vendor.products.store'
+])->middleware('auth');
+
 Route::get('/home', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics')->middleware('auth', 'verified');
 // Main Page Route
 Route::get('/', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
