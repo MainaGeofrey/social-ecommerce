@@ -10,13 +10,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Products\Product;
 use App\Models\Products\Image;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
     //
     public function index()
     {
-        return view('pages.vendoradmin.products.index');
+      $products = Product::get();
+      //get all products images
+
+
+        return view('pages.vendoradmin.products.index', compact('products'));
     }
 
     public function create()
@@ -52,15 +57,23 @@ class ProductController extends Controller
       ]);
       $product->save();
      // dd($product);
-      $generated_file_name = time() . '.' . $request->images->getClientOriginalExtension();
+    //  $generated_file_name = time() . '.' . $request->images->getClientOriginalExtension();
       if($request->file('images')){
        // dd($request->file('images'));
-       $request->images->move(public_path('images'), $generated_file_name);
-       $path = public_path('images/' . $generated_file_name);
-       $image = Image::create([
-        'product_id' => $product->id,
-        'image_url' =>$path,
-        ]);
+
+        foreach($request->file('images') as $image){
+          $image_name = Str::lower(
+            pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME) . '-' . uniqid() . '.' . $image->getClientOriginalExtension()
+            );
+          $image->move(public_path('images/products'), $image_name);
+          $path = public_path('images/products/' . $image_name);
+          $image = Image::create([
+            'product_id' => $product->product_id,
+            'image_url' => $path,
+            'status' => 1,
+          ]);
+          $image->save();
+        }
 
       }
 
@@ -68,6 +81,36 @@ class ProductController extends Controller
 
         return redirect()->route('vendor.products.index');
     }
+
+    public function show($id)
+    {
+      $product_id = $id;
+      $product = Product::with('image')->find($product_id);
+     // dd($product);
+      $image = Image::where('product_id', $product_id)->get();
+     // dd($image);
+      return view('pages.vendoradmin.products.show', compact('product', 'image'));
+    }
+    public function edit($id)
+    {
+        $product = Product::find($id);
+        return view('pages.vendoradmin.products.edit', compact('product'));
+    }
+
+
+    //soft delete
+    public function destroy($id)
+    {
+        $product = Product::find($id);
+       $product->delete();
+       //delete all images related to product
+        $images = Image::where('product_id', $id)->get();
+        foreach($images as $image){
+          $image->delete();
+        }
+        return redirect()->route('vendor.products.index');
+    }
+
   }
 
 

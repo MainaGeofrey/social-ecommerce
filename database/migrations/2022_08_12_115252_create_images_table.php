@@ -14,10 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('images', function (Blueprint $table) {
+
           $table->bigIncrements('id');
           $table->string('image_url');
           $table->unsignedBigInteger('product_id');
           $table->integer('status')->default(1);
+          $table->softDeletes();
           $table->timestamps();
       });
     }

@@ -31,6 +31,18 @@ Route::post('/vendor/products', [
     'as' => 'vendor.products.store'
 ])->middleware('auth');
 
+Route::get('/vendor/products/{id}', [
+    'uses' => $controller_path . '\VendorAdmin\ProductController@show',
+    'as' => 'vendor.products.show'
+])->middleware('auth');
+
+//delete product
+Route::delete('/vendor/products/{id}', [
+    'uses' => $controller_path . '\VendorAdmin\ProductController@destroy',
+    'as' => 'vendor.products.destroy'
+])->middleware('auth');
+
+
 Route::get('/home', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics')->middleware('auth', 'verified');
 // Main Page Route
 Route::get('/', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');

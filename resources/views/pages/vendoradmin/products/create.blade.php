@@ -55,10 +55,10 @@ $isNavbar = false;
             <textarea id="product_short_description" name="product_short_description" required class="form-control" placeholder="Give the best description about yor product"></textarea>
           </div>
 
-         <!-- <div class="mb-3">
+          <div class="mb-3">
             <label for="formFileMultiple" class="form-label">Upload Images</label>
-            <input class="form-control" type="file" name = 'images'id="formFileMultiple" multiple>
-          </div>-->
+            <input class="form-control" type="file" name="images[]" id="formFileMultiple" multiple>
+          </div>
 
       </div>
 
@@ -80,7 +80,7 @@ $isNavbar = false;
           <div class=" imgUp">
             <div class="imagePreview"></div>
               <label class="btn btn-primary">
-                Upload<input type="file" name="images" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
+                Upload<input type="file"  class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
               </label>
           </div><!-- col-2 -->
           <i class="fa fa-plus imgAdd"></i>

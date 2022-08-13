@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
+
           $table->increments('product_id');
           $table->string('product_name');
           $table->integer('category_id');
@@ -22,6 +23,7 @@ return new class extends Migration
           $table->float('product_discount');
           $table->string('product_color');
           $table->integer('status');
+          $table->softDeletes();
           $table->timestamps();
       });
     }
