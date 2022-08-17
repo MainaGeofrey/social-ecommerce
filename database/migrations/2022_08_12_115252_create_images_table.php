@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
 
-          $table->bigIncrements('id');
+          $table->bigIncrements('image_id');
           $table->string('image_url');
           $table->unsignedBigInteger('product_id');
           $table->integer('status')->default(1);

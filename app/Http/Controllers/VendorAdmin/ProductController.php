@@ -66,7 +66,7 @@ class ProductController extends Controller
             pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME) . '-' . uniqid() . '.' . $image->getClientOriginalExtension()
             );
           $image->move(public_path('images/products'), $image_name);
-          $path = public_path('images/products/' . $image_name);
+          $path = 'images/products/' . $image_name;
           $image = Image::create([
             'product_id' => $product->product_id,
             'image_url' => $path,

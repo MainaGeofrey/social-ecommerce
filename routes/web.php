@@ -43,6 +43,18 @@ Route::delete('/vendor/products/{id}', [
 ])->middleware('auth');
 
 
+//catalog routes
+Route::get('/catalog', [
+    'uses' => $controller_path . '\Catalog\CatalogControllers@index',
+    'as' => 'catalog.index'
+]);
+
+Route::get('/catalog/{id}', [
+    'uses' => $controller_path . '\Catalog\CatalogControllers@show',
+    'as' => 'catalog.show'
+]);
+
+
 Route::get('/home', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics')->middleware('auth', 'verified');
 // Main Page Route
 Route::get('/', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');

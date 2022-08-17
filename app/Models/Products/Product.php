@@ -5,6 +5,8 @@ namespace App\Models\Products;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Products\Image;
+use App\Models\User;
 
 class Product extends Model
 {
@@ -20,16 +22,17 @@ class Product extends Model
         'product_discount',
         'product_color',
         'status',
+        'image_id'
     ];
 
 
     public function image()
     {
-        return $this->hasMany('App\Models\Products\Image', 'product_id');
+        return $this->hasMany(Image::class, 'product_id');
     }
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User', 'id');
+        return $this->belongsTo(User::class);
     }
 }
